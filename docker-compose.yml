@@ -1,0 +1,12 @@
+version: '3.2'
+
+services:
+  backend:
+    image: ltsiciliano/finances-control
+    ports:
+      - 40001:40001
+    container_name: finances-control-backend
+    networks:
+      - finances
+networks:
+  finances: {}
