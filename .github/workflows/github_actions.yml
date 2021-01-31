@@ -1,0 +1,25 @@
+name: build and deploy
+on:
+  push:
+    branches-ignore:
+      - 'master'
+      - 'release*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger docker-compose Digital Ocean
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.DIGITAL_OCEAN_HOST_SSH}}
+          key: ${{secrets.DIGITAL_OCEAN_KEY_SSH}}
+          username: ${{secrets.DIGITAL_OCEAN_USERNAME_SSH}}
+          passphrase: ${{secrets.DIGITAL_OCEAN_PASS_SSH}}
+          script: |
+            rm -r docker-compose-finances
+            mkdir docker-compose-finances
+            cd docker-compose-finances
+            git clone https://github.com/ltsiciliano/finances-control-infra.git
+            cd finances-control-infra
+            docker-compose pull && docker-compose up -d

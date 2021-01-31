@@ -6,6 +6,17 @@ services:
     ports:
       - 40001:40001
     container_name: finances-control-backend
+    restart: always
+    networks:
+      - finances
+  front:
+    image: ltsiciliano/finances-control-front
+    ports:
+      - 8080:80
+    container_name: finances-control-front
+    restart: always
+    depends_on:
+      - backend
     networks:
       - finances
 networks:
