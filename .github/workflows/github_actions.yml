@@ -9,13 +9,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Login DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ltsiciliano/finances-control-front
-          tags: latest
+#      - name: Login DockerHub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#          repository: ltsiciliano/finances-control-front
+#          tags: latest
       - name: Trigger docker-compose Digital Ocean
         uses: appleboy/ssh-action@v0.1.2
         with:
@@ -24,6 +24,7 @@ jobs:
           username: ${{secrets.DIGITAL_OCEAN_USERNAME_SSH}}
           passphrase: ${{secrets.DIGITAL_OCEAN_PASS_SSH}}
           script: |
+            docker login --username ltsiciliano --password-stdin
             rm -r docker-compose-finances
             mkdir docker-compose-finances
             cd docker-compose-finances
