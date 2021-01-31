@@ -24,7 +24,7 @@ jobs:
           username: ${{secrets.DIGITAL_OCEAN_USERNAME_SSH}}
           passphrase: ${{secrets.DIGITAL_OCEAN_PASS_SSH}}
           script: |
-            docker login --username ltsiciliano --password-stdin
+            docker login --username ltsiciliano --password ${{ secrets.DOCKERHUB_TOKEN }}
             rm -r docker-compose-finances
             mkdir docker-compose-finances
             cd docker-compose-finances
