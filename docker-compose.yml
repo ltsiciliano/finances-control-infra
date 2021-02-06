@@ -19,5 +19,13 @@ services:
       - backend
     networks:
       - finances
+  domain:
+    image: ltsiciliano/finances-control-domain
+    ports:
+      - 50001:50001
+    container_name: finances-control-domain
+    restart: always
+    networks:
+      - finances
 networks:
   finances: {}
